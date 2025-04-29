@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:study/cubit/counter_cubit.dart';
 import 'package:study/cubit/counter_state.dart';
@@ -33,32 +34,34 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("rebuild");
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              IconButton(
-                onPressed: () {
-                  context.read<CounterCubit>().increment();
-                },
-                icon: Icon(Icons.add),
-              ),
-              BlocBuilder<CounterCubit, CounterState>(
-                builder: (context, state) {
-                  return Text("${state.counter}");
-                },
-              ),
-              IconButton(
-                onPressed: () {
-                  context.read<CounterCubit>().decrement();
-                },
-                icon: Icon(Icons.remove),
-              ),
-            ],
-          ),
+      appBar: AppBar(
+        title: const Text('Title'),
+      ),
+      body: Center(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () {
+                context.read<CounterCubit>().increment();
+              },
+              child: Text("Plus"),
+            ),
+            BlocBuilder<CounterCubit, CounterState>(
+              builder: (context, state) {
+                return Text("${state.counter}");
+              },
+            ),
+            TextButton(
+              onPressed: () {
+                context.read<CounterCubit>().decrement();
+              },
+              child: Text("Minus"),
+            ),
+          ],
         ),
       ),
     );
