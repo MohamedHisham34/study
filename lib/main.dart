@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, curly_braces_in_flow_control_structures
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -40,30 +40,77 @@ class HomePage extends StatelessWidget {
         title: const Text('Title'),
       ),
       body: Center(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                context.read<CounterCubit>().increment();
-              },
-              child: Text("Plus"),
-            ),
-            BlocBuilder<CounterCubit, CounterState>(
-              builder: (context, state) {
-                return Text("${state.counter}");
-              },
-            ),
-            TextButton(
-              onPressed: () {
-                context.read<CounterCubit>().decrement();
-              },
-              child: Text("Minus"),
-            ),
-          ],
-        ),
-      ),
+          child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () {
+                  context.read<CounterCubit>().incrementA();
+                },
+                child: Text("Plus"),
+              ),
+              BlocBuilder<CounterCubit, CounterState>(
+                builder: (context, state) {
+                  if (state is incrementState) {
+                    return Text("${state.counterA}");
+                  }
+                  if (state is decrementState) {
+                    return Text(
+                      "${state.counterA}",
+                      style: TextStyle(color: Colors.red),
+                    );
+                  } else
+                    return Text("${state.counterA}");
+                },
+              ),
+              TextButton(
+                onPressed: () {
+                  context.read<CounterCubit>().decrementA();
+                },
+                child: Text("Minus"),
+              ),
+            ],
+          ),
+          /////////////////////////////////////////
+
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () {
+                  context.read<CounterCubit>().incrementB();
+                },
+                child: Text("Plus"),
+              ),
+              BlocBuilder<CounterCubit, CounterState>(
+                builder: (context, state) {
+                  if (state is incrementState) {
+                    return Text("${state.counterB}");
+                  }
+                  if (state is decrementState) {
+                    return Text(
+                      "${state.counterB}",
+                      style: TextStyle(color: Colors.red),
+                    );
+                  } else
+                    return Text("${state.counterB}");
+                },
+              ),
+              TextButton(
+                onPressed: () {
+                  context.read<CounterCubit>().decrementB();
+                },
+                child: Text("Minus"),
+              ),
+            ],
+          ),
+          ////////////////////////////////////////////////////////////
+        ],
+      )),
     );
   }
 }
